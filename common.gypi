@@ -12,6 +12,7 @@
       'Debug': {
         'defines': [ 'DEBUG', '_DEBUG' ],
         'cflags': [ '-g', '-O0', '-fwrapv' ],
+		
         'msvs_settings': {
           'VCCLCompilerTool': {
             'target_conditions': [
@@ -50,6 +51,7 @@
           '-fdata-sections',
           '-ffunction-sections',
         ],
+		
         'msvs_settings': {
           'VCCLCompilerTool': {
             'target_conditions': [
@@ -81,6 +83,9 @@
         },
       }
     },
+	'msbuild_toolset': 'v140_xp',  # VS2015
+	#'msbuild_toolset': 'v120_xp',  # VS2013
+	#'msbuild_toolset': 'v110_xp',  # VS2012
     'msvs_settings': {
       'VCCLCompilerTool': {
         'StringPooling': 'true', # pool string literals

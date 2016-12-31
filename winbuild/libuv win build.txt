@@ -1,0 +1,37 @@
+最新发现网易云信提供了一个客户端im Demo。使用vs2013编译的。
+想把他集成到vs2015中，需要除了升级
+
+1 官网：http://libuv.org/
+ github源码：https://github.com/libuv/libuv
+ git clone https://github.com/libuv/libuv.git
+
+
+systemctl start pptpd.service
+systemctl enable pptpd
+
+set GYP_MSVS_VERSION=2015
+gyp_uv.py -Dtarget_arch=x32
+gyp_uv.py -Dtarget_arch=x64
+
+在 common.gypi 的line86 加入编译对xp版本的支持。
+在【'msvs_settings': {】行前面，与msvs_settings同级。
+'msbuild_toolset': 'v140_xp',  # VS2015
+#'msbuild_toolset': 'v120_xp',  # VS2013
+
+#'msbuild_toolset': 'v110_xp',  # VS2012
+
+在命令提示符cmd窗口运行：gyp_uv.py -Dtarget_arch=x32，得到如下32位相关的7个文件。
+用vs2015打开，编译获得vs2015 32位支持xp的 debug/release 静态库。
+libuv.vcxproj
+libuv.vcxproj.filters
+run-benchmarks.vcxproj
+run-benchmarks.vcxproj.filters
+run-tests.vcxproj
+run-tests.vcxproj.filters
+uv.sln
+
+
+tty.c(468): warning C4013: “InterlockedOr”未定义；假设外部返回 int
+测试程序用到这个函数相关的调用，出现链接错误
+libuv.lib(tty.obj) : error LNK2001: 无法解析的外部符号 _InterlockedOr
+
